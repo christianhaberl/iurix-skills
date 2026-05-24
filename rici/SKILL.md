@@ -35,7 +35,9 @@ curl -s -X POST "$API_URL/query" \
 
 **WICHTIG:** 
 - `mode` sollte standardmäßig immer `"auto"` sein. Der RICI API Router entscheidet dann selbst, in welchen Datenbanken er sucht.
-- Falls der User explizit eine bestimmte Quelle durchsuchen möchte (z.B. "Suche nur in der Judikatur"), setze `"mode": "single"` und gib den Namen der gewünschten Collection im Feld `collection` mit (z.B. `"collection": "ris_judikatur"`). Gültige Collections sind: `ris_bundesrecht`, `ris_judikatur`, `findok`, `eurlex_de`.
+- Falls der User explizit eine bestimmte Quelle durchsuchen möchte (z.B. "Suche nur in der Judikatur"), setze `"mode": "single"` und gib den Namen der gewünschten Collection im Feld `collection` mit (z.B. `"collection": "ris_judikatur"`).
+- Falls der User mehrere explizite Quellen gleichzeitig durchsuchen möchte (z.B. "Suche in Findok und Bundesrecht"), setze ebenfalls `"mode": "single"` und übergib eine Liste im Feld `collections` (z.B. `"collections": ["findok", "ris_bundesrecht"]`).
+Gültige Collections sind: `ris_bundesrecht`, `ris_judikatur`, `findok`, `eurlex_de`.
 
 **Response (JSON):**
 Die Response enthält eine `job_id` und den Status `running`. Merke dir die `job_id`.
