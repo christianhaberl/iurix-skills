@@ -30,12 +30,12 @@ Führe folgenden `curl`-Befehl aus (ersetze die Variablen entsprechend):
 curl -s -X POST "$API_URL/query" \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $API_KEY" \
-  -d '{"query": "RECHTSFRAGE_HIER_EINSETZEN", "poll": true, "collection": "auto"}'
+  -d '{"query": "RECHTSFRAGE_HIER_EINSETZEN", "poll": true, "mode": "auto"}'
 ```
 
 **WICHTIG:** 
-- `collection` sollte standardmäßig immer `"auto"` sein. Der RICI API Router entscheidet dann selbst, in welchen Datenbanken er sucht.
-- Ändere die Collection nur, wenn der User explizit danach verlangt (z.B. "Suche nur in der Judikatur"). Gib einfach den vom User gewünschten Namen als String mit (z.B. "ris_judikatur").
+- `mode` sollte standardmäßig immer `"auto"` sein. Der RICI API Router entscheidet dann selbst, in welchen Datenbanken er sucht.
+- Falls der User explizit eine bestimmte Quelle durchsuchen möchte (z.B. "Suche nur in der Judikatur"), setze `"mode": "single"` und gib den Namen der gewünschten Collection im Feld `collection` mit (z.B. `"collection": "ris_judikatur"`). Gültige Collections sind: `ris_bundesrecht`, `ris_judikatur`, `findok`, `eurlex_de`.
 
 **Response (JSON):**
 Die Response enthält eine `job_id` und den Status `running`. Merke dir die `job_id`.
