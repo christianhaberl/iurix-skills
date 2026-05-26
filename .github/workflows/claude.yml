@@ -16,8 +16,7 @@ on:
 
 jobs:
   claude:
-    # Only run on @claude mentions (issue_comment/review_comment/review/issue)
-    # OR on pull_request events (auto-review of non-draft PRs)
+    # Only run on @claude mentions OR on non-draft PR events (auto-review)
     if: |
       (github.event_name == 'pull_request' && github.event.pull_request.draft == false) ||
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
@@ -42,4 +41,4 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
-            ${{ github.event_name == 'pull_request' && 'Review this PR for code quality, bugs, security, and performance. Leave inline comments on specific issues. If everything looks good, say so concisely.' || '' }}
+            ${{ github.event_name == 'pull_request' && 'You are reviewing a new pull request. Analyze the diff for code quality, bugs, security issues, and performance problems. Use inline comments for specific code issues. ALWAYS post at least one summary comment on the PR — even a brief "Looks good, no issues found." if there is nothing to flag. Do not exit silently.' || 'A user has mentioned you in a comment on this PR or issue. Read the triggering comment carefully and respond directly by posting a PR/issue comment that answers their question or fulfills their request. Always post a reply — never exit without commenting.' }}
